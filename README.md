@@ -118,19 +118,6 @@ Therefore, the Extended Kalman Filter successfully passed the Step 1 requirement
 Suggested evidence:
  <img width="1327" height="891" alt="image" src="https://github.com/user-attachments/assets/ca467ab1-61dd-4c0c-8524-790defb7e361" />
  
-<img width="2187" height="764" alt="image" src="https://github.com/user-attachments/assets/ac2c9ccf-9530-467a-b159-48f0f12e8837" />
-
- <img width="1652" height="675" alt="image" src="https://github.com/user-attachments/assets/0e361c49-e6fe-461b-ad96-34933895b9b9" />
- 
- <img width="2543" height="895" alt="image" src="https://github.com/user-attachments/assets/c655c0dd-8630-46af-bc8f-182afbea6d09" />
- 
- <img width="2549" height="850" alt="image" src="https://github.com/user-attachments/assets/bb0903f3-c576-4937-a6a3-9513e37c1bf6" />
- 
- <img width="2531" height="872" alt="image" src="https://github.com/user-attachments/assets/091558b5-53b6-4182-9409-2842278191ad" />
- 
- <img width="2508" height="907" alt="image" src="https://github.com/user-attachments/assets/712645bd-001a-4895-b42f-c4243a09468f" />
-
-
 
 
 # Step 2 - Track Management
@@ -235,7 +222,20 @@ The RMSE in this scenario is intentionally higher because the supplied LiDAR det
 
 Suggested evidence:
 
-    images/step2_track_management_rmse.png
+ <img width="2187" height="764" alt="image" src="https://github.com/user-attachments/assets/ac2c9ccf-9530-467a-b159-48f0f12e8837" />
+
+ <img width="1652" height="675" alt="image" src="https://github.com/user-attachments/assets/0e361c49-e6fe-461b-ad96-34933895b9b9" />
+ 
+ <img width="2543" height="895" alt="image" src="https://github.com/user-attachments/assets/c655c0dd-8630-46af-bc8f-182afbea6d09" />
+ 
+ <img width="2549" height="850" alt="image" src="https://github.com/user-attachments/assets/bb0903f3-c576-4937-a6a3-9513e37c1bf6" />
+ 
+ <img width="2531" height="872" alt="image" src="https://github.com/user-attachments/assets/091558b5-53b6-4182-9409-2842278191ad" />
+ 
+ <img width="2508" height="907" alt="image" src="https://github.com/user-attachments/assets/712645bd-001a-4895-b42f-c4243a09468f" />
+
+
+
 
 
 # Step 3 - Multi-Target Data Association
