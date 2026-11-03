@@ -2,33 +2,6 @@
 
 This project implements a complete multi-object tracking and sensor-fusion pipeline using real-world LiDAR and camera measurements from the Waymo Open Dataset.
 
-The tracking system combines:
-
-- Extended Kalman Filtering
-- 3D constant-velocity motion modeling
-- Dynamic track initialization and deletion
-- Track confidence scoring and state management
-- Single Nearest Neighbor data association
-- Mahalanobis-distance gating
-- Nonlinear camera measurement modeling
-- LiDAR-camera sensor fusion
-- Multi-target tracking
-- RMSE-based tracking evaluation
-
-The project was developed incrementally in four main steps. Each step introduces an additional component of the final tracking architecture.
-
-
-The state of every tracked object is represented by:
-
-    x = [px, py, pz, vx, vy, vz]^T
-
-where:
-
-- `px`, `py`, `pz` represent the 3D position of the tracked object.
-- `vx`, `vy`, `vz` represent its velocity.
-
-
-
 # Step 1 - Extended Kalman Filter
 
 The first step implements an Extended Kalman Filter capable of tracking a single vehicle using LiDAR measurements.
@@ -36,70 +9,6 @@ The first step implements an Extended Kalman Filter capable of tracking a single
 The EKF implementation is located in:
 
     student/filter.py
-
-The following functions were implemented:
-
-- `F()`
-- `Q()`
-- `predict()`
-- `update()`
-- `gamma()`
-- `S()`
-
-## Constant-Velocity Motion Model
-
-A three-dimensional constant-velocity model is used.
-
-The system matrix is:
-
-    F =
-
-    [1 0 0 dt 0  0 ]
-    [0 1 0 0  dt 0 ]
-    [0 0 1 0  0  dt]
-    [0 0 0 1  0  0 ]
-    [0 0 0 0  1  0 ]
-    [0 0 0 0  0  1 ]
-
-The state prediction is calculated using:
-
-    x' = F x
-
-The covariance prediction is:
-
-    P' = F P F^T + Q
-
-`Q` represents the process-noise covariance and models uncertainty caused by unobserved acceleration.
-
-The parameters `dt`, `q`, and `dim_state` are loaded from:
-
-    misc/params.py
-
-
-## Measurement Update
-
-For every associated measurement, the measurement residual is calculated as:
-
-    gamma = z - h(x)
-
-Using `h(x)` instead of directly using `H*x` allows the EKF implementation to support both the linear LiDAR measurement model and the nonlinear camera measurement model introduced later.
-
-The residual covariance is:
-
-    S = H P H^T + R
-
-The Kalman gain is:
-
-    K = P H^T S^-1
-
-The updated state is:
-
-    x = x + K gamma
-
-and the updated covariance is:
-
-    P = (I - K H) P
-
 
 ## Step 1 Result
 
@@ -138,29 +47,12 @@ A new track is initialized whenever an unassigned LiDAR measurement is available
 
 The measurement is transformed from sensor coordinates into vehicle coordinates using the sensor transformation matrix.
 
-The initial state is:
-
-    x = [px, py, pz, 0, 0, 0]^T
 
 The position is initialized directly from the transformed LiDAR measurement.
 
 The initial velocity is set to zero because velocity cannot be directly determined from a single measurement.
 
 The positional covariance is derived from the measurement covariance and transformed into vehicle coordinates.
-
-Initial velocity uncertainty is configured using:
-
-- `sigma_p44`
-- `sigma_p55`
-- `sigma_p66`
-
-The initial track state is:
-
-    initialized
-
-and the initial score is:
-
-    score = 1 / window
 
 
 
@@ -191,24 +83,6 @@ The transition to `confirmed` occurs when the score reaches the configured `conf
 
 This prevents isolated false measurements from immediately becoming valid confirmed tracks.
 
-
-# Track Deletion
-
-Confirmed tracks are deleted when their score falls below the configured deletion threshold.
-
-Initialized and tentative tracks use a more conservative deletion strategy because their initial score is necessarily small.
-
-Tracks are also deleted when their positional covariance becomes too large:
-
-    P[0,0] > max_P
-
-or:
-
-    P[1,1] > max_P
-
-This prevents tracks with excessive spatial uncertainty from remaining active indefinitely.
-
-
 ## Step Result
 
 The Step 2 test uses Sequence 2 between frames 65 and 100.
@@ -228,10 +102,6 @@ Suggested evidence:
 <img width="1432" height="539" alt="image" src="https://github.com/user-attachments/assets/d90ffe6c-62d5-40eb-8a74-f4c7065e724f" />
 
  
-
-
-
-
 # Step 3 - Multi-Target Data Association
 
 The third step extends the solution from single-object tracking to multi-object tracking.
@@ -258,61 +128,6 @@ Track-measurement combinations that do not pass the statistical gate are assigne
 This ensures that implausible associations cannot be selected by the nearest-neighbor algorithm.
 
 
-# Mahalanobis Distance
-
-The innovation or measurement residual is:
-
-    gamma = z - h(x)
-
-The innovation covariance is:
-
-    S = H P H^T + R
-
-The squared Mahalanobis distance is:
-
-    MHD = gamma^T S^-1 gamma
-
-Unlike Euclidean distance, Mahalanobis distance considers the uncertainty of both the track estimate and the measurement.
-
-This makes it suitable for probabilistic data association.
-
-
-# Statistical Gating
-
-A chi-square distribution is used to decide whether a measurement is statistically compatible with a track.
-
-The gate threshold is calculated using:
-
-    chi2.ppf(
-        gating_threshold,
-        sensor.dim_meas
-    )
-
-If:
-
-    MHD < gate_threshold
-
-the association candidate is retained.
-
-Otherwise, it is rejected.
-
-
-# Single Nearest Neighbor
-
-Among the remaining valid associations, the pair with the minimum Mahalanobis distance is selected.
-
-After selecting an association:
-
-1. The corresponding track row is removed from the association matrix.
-2. The corresponding measurement column is removed.
-3. The track is removed from the unassigned-track list.
-4. The measurement is removed from the unassigned-measurement list.
-
-This guarantees that:
-
-- one measurement cannot update multiple tracks;
-- one track cannot be updated by multiple measurements from the same sensor-association cycle.
-
 
 ## Step 3 Result
 
@@ -327,8 +142,6 @@ The RMSE visualization contained separate curves for multiple successfully track
 Suggested evidence:
 
     
-
- 
   <img width="2508" height="907" alt="image" src="https://github.com/user-attachments/assets/712645bd-001a-4895-b42f-c4243a09468f" />
 
 
@@ -364,66 +177,6 @@ This check is particularly important for track management.
 A missing camera measurement should reduce a track score only when the predicted object is actually visible to the camera.
 
 
-# Nonlinear Camera Measurement Model
-
-The camera provides two-dimensional image measurements:
-
-    z = [i, j]^T
-
-The 3D object position is first transformed from vehicle coordinates into camera coordinates.
-
-The predicted image position is then calculated as:
-
-    i = c_i - f_i * y / x
-
-    j = c_j - f_j * z / x
-
-where:
-
-- `f_i`, `f_j` are camera focal lengths;
-- `c_i`, `c_j` are principal-point coordinates;
-- `x`, `y`, `z` are the object coordinates in the camera coordinate system.
-
-Division by zero is explicitly prevented when the depth coordinate approaches zero.
-
-Because this measurement model is nonlinear, the EKF uses the corresponding camera Jacobian `H`.
-
-# Camera Measurement Noise
-
-Camera measurements use the configured standard deviations:
-
-    sigma_cam_i
-    sigma_cam_j
-
-The measurement-noise covariance is:
-
-    R =
-
-    [sigma_cam_i^2    0            ]
-    [0                sigma_cam_j^2]
-
-Camera measurement objects contain:
-
-- measurement vector `z`;
-- covariance matrix `R`;
-- reference to the camera sensor.
-
-Object dimensions and yaw remain derived from LiDAR measurements.
-
-
-# Camera-LiDAR Update Sequence
-
-Each frame follows the sequence:
-
-
-During the final execution, the console confirmed actual camera updates, for example:
-
-    update track 0 with camera measurement 3
-
-This confirms that camera data is not only generated but actually participates in the Extended Kalman Filter update.
-
-
-
 # Final Sensor-Fusion Results
 
 The final Sequence 1 evaluation produced three confirmed tracks:
@@ -453,11 +206,6 @@ Suggested evidence:
  
  <img width="2531" height="872" alt="image" src="https://github.com/user-attachments/assets/091558b5-53b6-4182-9409-2842278191ad" />
  
-
-
-
-
-
 # Final Performance Summary
 
 | Project Step | Result |
@@ -480,26 +228,6 @@ Suggested evidence:
 | Final Track 0 RMSE | 0.17 m |
 | Final Track 1 RMSE | 0.10 m |
 | Final Track 14 RMSE | 0.13 m |
-
-
-
-# Main Project Files
-
-The main student implementations are contained in:
-
-    student/filter.py
-    student/trackmanagement.py
-    student/association.py
-    student/measurements.py
-
-Additional project integration and visualization uses:
-
-    student/objdet_detect.py
-    student/objdet_pcl.py
-    student/objdet_eval.py
-    misc/evaluation.py
-    loop_over_dataset.py
-
 
 
 # Running the Final Sensor-Fusion Scenario
@@ -549,26 +277,6 @@ The resulting file is:
 
     my_tracking_results.avi
 
-
-# Final Validation
-
-Before submission, the modified Python files can be checked for syntax errors using:
-
-    python -m py_compile \
-    student/filter.py \
-    student/trackmanagement.py \
-    student/association.py \
-    student/measurements.py \
-    student/objdet_detect.py \
-    student/objdet_pcl.py \
-    student/objdet_eval.py \
-    misc/evaluation.py \
-    loop_over_dataset.py
-
-A successful command produces no output.
-
-
-This project implements a complete multi-object sensor-fusion tracking system using real-world LiDAR and camera measurements.
 
 The implementation begins with a three-dimensional constant-velocity Extended Kalman Filter and progressively introduces dynamic track management, probabilistic data association, statistical gating, and nonlinear camera measurements.
 
