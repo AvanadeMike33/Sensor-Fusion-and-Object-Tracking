@@ -227,18 +227,7 @@ Suggested evidence:
 
 <img width="1432" height="539" alt="image" src="https://github.com/user-attachments/assets/d90ffe6c-62d5-40eb-8a74-f4c7065e724f" />
 
- <img width="2187" height="764" alt="image" src="https://github.com/user-attachments/assets/ac2c9ccf-9530-467a-b159-48f0f12e8837" />
-
- <img width="1652" height="675" alt="image" src="https://github.com/user-attachments/assets/0e361c49-e6fe-461b-ad96-34933895b9b9" />
  
- <img width="2543" height="895" alt="image" src="https://github.com/user-attachments/assets/c655c0dd-8630-46af-bc8f-182afbea6d09" />
- 
- <img width="2549" height="850" alt="image" src="https://github.com/user-attachments/assets/bb0903f3-c576-4937-a6a3-9513e37c1bf6" />
- 
- <img width="2531" height="872" alt="image" src="https://github.com/user-attachments/assets/091558b5-53b6-4182-9409-2842278191ad" />
- 
- <img width="2508" height="907" alt="image" src="https://github.com/user-attachments/assets/712645bd-001a-4895-b42f-c4243a09468f" />
-
 
 
 
@@ -337,7 +326,11 @@ The RMSE visualization contained separate curves for multiple successfully track
 
 Suggested evidence:
 
-    images/step3_multi_target_rmse.png
+    <img width="2187" height="764" alt="image" src="https://github.com/user-attachments/assets/ac2c9ccf-9530-467a-b159-48f0f12e8837" />
+
+ <img width="1652" height="675" alt="image" src="https://github.com/user-attachments/assets/0e361c49-e6fe-461b-ad96-34933895b9b9" />
+ 
+ <img width="2543" height="895" alt="image" src="https://github.com/user-attachments/assets/c655c0dd-8630-46af-bc8f-182afbea6d09" />
 
 
 # Step 4 - Camera and LiDAR Sensor Fusion
@@ -456,7 +449,13 @@ The two principal tracks therefore comfortably satisfy the final project accurac
 
 Suggested evidence:
 
-    images/step4_sensor_fusion_rmse.png
+     
+ <img width="2549" height="850" alt="image" src="https://github.com/user-attachments/assets/bb0903f3-c576-4937-a6a3-9513e37c1bf6" />
+ 
+ <img width="2531" height="872" alt="image" src="https://github.com/user-attachments/assets/091558b5-53b6-4182-9409-2842278191ad" />
+ 
+ <img width="2508" height="907" alt="image" src="https://github.com/user-attachments/assets/712645bd-001a-4895-b42f-c4243a09468f" />
+
 
 
 
