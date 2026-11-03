@@ -326,10 +326,10 @@ The RMSE visualization contained separate curves for multiple successfully track
 
 Suggested evidence:
 
-    <img width="2187" height="764" alt="image" src="https://github.com/user-attachments/assets/ac2c9ccf-9530-467a-b159-48f0f12e8837" />
+    
 
  
- <img width="2543" height="895" alt="image" src="https://github.com/user-attachments/assets/c655c0dd-8630-46af-bc8f-182afbea6d09" />
+  <img width="2508" height="907" alt="image" src="https://github.com/user-attachments/assets/712645bd-001a-4895-b42f-c4243a09468f" />
 
 
 # Step 4 - Camera and LiDAR Sensor Fusion
@@ -453,7 +453,7 @@ Suggested evidence:
  
  <img width="2531" height="872" alt="image" src="https://github.com/user-attachments/assets/091558b5-53b6-4182-9409-2842278191ad" />
  
- <img width="2508" height="907" alt="image" src="https://github.com/user-attachments/assets/712645bd-001a-4895-b42f-c4243a09468f" />
+
 
 
 
