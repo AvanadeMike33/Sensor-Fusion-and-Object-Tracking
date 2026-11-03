@@ -225,6 +225,8 @@ The RMSE in this scenario is intentionally higher because the supplied LiDAR det
 
 Suggested evidence:
 
+<img width="1432" height="539" alt="image" src="https://github.com/user-attachments/assets/d90ffe6c-62d5-40eb-8a74-f4c7065e724f" />
+
  <img width="2187" height="764" alt="image" src="https://github.com/user-attachments/assets/ac2c9ccf-9530-467a-b159-48f0f12e8837" />
 
  <img width="1652" height="675" alt="image" src="https://github.com/user-attachments/assets/0e361c49-e6fe-461b-ad96-34933895b9b9" />
