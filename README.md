@@ -116,6 +116,9 @@ The project requirement was:
 Therefore, the Extended Kalman Filter successfully passed the Step 1 requirement.
 
 Suggested evidence:
+
+<img width="2020" height="695" alt="image" src="https://github.com/user-attachments/assets/336df3e2-8345-4697-82e2-c3e68aeca29e" />
+
  <img width="1327" height="891" alt="image" src="https://github.com/user-attachments/assets/ca467ab1-61dd-4c0c-8524-790defb7e361" />
  
 
