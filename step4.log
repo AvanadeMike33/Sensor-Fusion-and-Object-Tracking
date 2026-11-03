@@ -1,0 +1,32 @@
+student task ID_S3_EX1-3
+using ResNet architecture with feature pyramid
+student task ID_S3_EX1-4
+Loaded weights from /workspace/home/tools/objdet_models/resnet/pretrained/fpn_resnet_18_epoch_300.pth
+
+------------------------------
+processing frame #0
+loading lidar point-cloud from result file
+loading birds-eve view from result file
+loading detected objects from result file
+loading object labels and validation from result file
+loading detection performance measures from file
+creating track no. 0
+creating track no. 1
+track 0 score = 0.16666666666666666
+track 1 score = 0.16666666666666666
+update track 1 with camera measurement 4
+update track 0 with camera measurement 3
+track 0 score = 0.3333333333333333
+track 1 score = 0.3333333333333333
+Traceback (most recent call last):
+  File "loop_over_dataset.py", line 256, in <module>
+    valid_label_flags, image, camera, configs_det)
+  File "/workspace/home/misc/evaluation.py", line 142, in plot_tracks
+    ax.scatter(-1*meas.z[1], meas.z[0], color='blue', marker='.', label='measurement')
+  File "/data/virtual_envs/sdc-c2/lib/python3.7/site-packages/matplotlib/__init__.py", line 1352, in inner
+    return func(ax, *map(sanitize_sequence, args), **kwargs)
+  File "/data/virtual_envs/sdc-c2/lib/python3.7/site-packages/matplotlib/axes/_axes.py", line 4507, in scatter
+    x, y, s, c, colors, edgecolors, linewidths)
+  File "/data/virtual_envs/sdc-c2/lib/python3.7/site-packages/matplotlib/cbook/__init__.py", line 1059, in _combine_masks
+    raise ValueError("Masked arrays must be 1-D")
+ValueError: Masked arrays must be 1-D
