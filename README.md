@@ -78,11 +78,7 @@ Unassigned tracks inside the active sensor field of view lose score. Tracks are 
 
 Multi-target association is implemented in `student/association.py` using Single Nearest Neighbor association and Mahalanobis-distance gating.
 
-For each track-measurement pair, the squared Mahalanobis distance is computed as:
-
-```text
-MHD = gamma^T S^-1 gamma
-```
+For each track-measurement pair, the squared Mahalanobis distance is computed
 
 A chi-square gate rejects statistically implausible pairs. The valid pair with the lowest distance is selected, and its row and column are removed from the association matrix so that each track and each measurement can be used at most once during one sensor-association cycle.
 
