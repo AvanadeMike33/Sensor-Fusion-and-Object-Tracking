@@ -192,4 +192,4 @@ A successful syntax check produces no output.
 
 ## Project Write-Up
 
-The detailed answers to the project questions, including the discussion of sensor-fusion benefits, real-world challenges, and future improvements, are available in [WRITEUP.md](WRITEUP.md).
+The detailed answers to the project questions, including the discussion of sensor-fusion benefits, real-world challenges, and future improvements, are available in [WRITEUP.md](writeup.md).
