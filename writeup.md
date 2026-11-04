@@ -4,9 +4,7 @@ The project was implemented in four incremental steps: Extended Kalman Filtering
 
 ### Step 1: Extended Kalman Filter
 
-I implemented a 3D Extended Kalman Filter using a constant-velocity motion model. The state vector contains the 3D position and velocity of the tracked object:
-
-    x = [px, py, pz, vx, vy, vz]^T
+I implemented a 3D Extended Kalman Filter using a constant-velocity motion model. The state vector contains the 3D position and velocity of the tracked object
 
 I implemented the system matrix `F`, process-noise covariance `Q`, state prediction, covariance prediction, measurement residual `gamma`, residual covariance `S`, Kalman gain, and measurement update.
 
@@ -39,9 +37,7 @@ In the test scenario, the target was correctly initialized, confirmed, tracked, 
 
 ### Step 3: Multi-Target Data Association
 
-I implemented Single Nearest Neighbor data association using the Mahalanobis distance:
-
-    MHD = gamma^T S^-1 gamma
+I implemented Single Nearest Neighbor data association using the Mahalanobis distance
 
 A chi-square gate rejects statistically implausible track-measurement combinations.
 
@@ -53,20 +49,15 @@ After implementing the association logic, the system successfully maintained mul
 
 Finally, I implemented the nonlinear camera measurement model, including sensor field-of-view checking, coordinate transformation, nonlinear image projection, camera measurement generation, and camera measurement covariance.
 
-The camera projection is:
-
-    i = c_i - f_i * y / x
-    j = c_j - f_j * z / x
 
 Camera measurements were then associated with existing tracks and used for EKF updates after the LiDAR updates.
 
 The final sensor-fusion experiment produced three confirmed tracks with the following mean RMSE values:
 
-| Track | Mean RMSE |
-|---|---:|
-| Track 0 | 0.17 m |
-| Track 1 | 0.10 m |
-| Track 14 | 0.13 m |
+ Track  Mean RMSE 
+ Track 0  0.17 m 
+ Track 1  0.10 m 
+ Track 14  0.13 m 
 
 All three tracks achieved a mean RMSE below 0.25 m.
 
